@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Be My Valentine 💘</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <style>
         /* Reset بسيط */
         * {
@@ -21,6 +20,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            transition: background 1s ease;
         }
 
         /* القلوب في الخلفية */
@@ -60,6 +60,14 @@
             animation: fadeIn 1.5s ease;
             max-width: 350px;
             width: 90%;
+            z-index: 10;
+            position: relative;
+            transition: transform 0.5s ease;
+        }
+
+        .card.hidden {
+            transform: scale(0);
+            opacity: 0;
         }
 
         @keyframes fadeIn {
@@ -98,6 +106,7 @@
             border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .yes {
@@ -114,11 +123,108 @@
         .no {
             background: #ffd6dc;
             color: #ff4b6e;
+            transition: all 0.5s ease;
+            position: relative;
         }
 
         .no:hover {
             background: #ffb3c1;
-            transform: scale(0.95);
+        }
+
+        .no.escaped {
+            animation: escape 0.5s ease-out;
+        }
+
+        @keyframes escape {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(var(--escape-x), var(--escape-y)); }
+        }
+
+        /* الصفحة الثانية - الرسالة الرومانسية */
+        .second-page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .second-page.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .message-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 30px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            max-width: 500px;
+            width: 90%;
+            animation: messageAppear 1.5s ease;
+        }
+
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .message-container h2 {
+            color: #ff4b6e;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .message-container p {
+            color: #555;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .romantic-hearts {
+            font-size: 40px;
+            margin: 20px 0;
+            animation: heartBeat 1.5s infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .back-button {
+            background: #ff4b6e;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background: #ff1f4a;
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 75, 110, 0.4);
         }
 
         /* Responsive */
@@ -126,11 +232,16 @@
             h1 {
                 font-size: 22px;
             }
+            .message-container h2 {
+                font-size: 26px;
+            }
+            .message-container p {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
-
     <!-- قلوب الخلفية -->
     <div class="hearts">
         <span>💖</span>
@@ -140,15 +251,161 @@
         <span>💗</span>
     </div>
 
-    <!-- الكارد -->
-    <div class="card">
+    <!-- الكارد الرئيسي -->
+    <div class="card" id="mainCard">
         <h1>Will you be my Valentine? 💖</h1>
-
         <div class="buttons">
-            <button class="yes">Yes 💘</button>
-            <button class="no">No 💔</button>
+            <button class="yes" id="yesBtn">Yes 💘</button>
+            <button class="no" id="noBtn">No 💔</button>
         </div>
     </div>
 
+    <!-- الصفحة الثانية -->
+    <div class="second-page" id="secondPage">
+        <div class="message-container">
+            <h2>You Found Me! 💖</h2>
+            <div class="romantic-hearts">❤️💘💕💗💓</div>
+            <p>Even when I tried to run away, my heart always leads me back to you. You're the one who captured my heart completely.</p>
+            <p>Your persistence and determination show me how much you care. I may have tried to escape, but deep down I always hoped you'd catch me.</p>
+            <p>So here's my real answer: <strong>YES, I will be your Valentine!</strong> 💝</p>
+            <button class="back-button" id="backBtn">Back to Question 💌</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const mainCard = document.getElementById('mainCard');
+            const secondPage = document.getElementById('secondPage');
+            const backBtn = document.getElementById('backBtn');
+            const body = document.body;
+            
+            // إعدادات الهروب لزر "لا"
+            let escapeCount = 0;
+            const maxEscapes = 8;
+            const cardRect = mainCard.getBoundingClientRect();
+            
+            // معالج حدث زر "نعم"
+            yesBtn.addEventListener('click', function() {
+                showSecondPage();
+            });
+            
+            // معالج حدث زر "لا" - يهرب عند الاقتراب منه
+            noBtn.addEventListener('mouseover', function() {
+                escapeCount++;
+                
+                if (escapeCount > maxEscapes) {
+                    // بعد محاولات عديدة، نجح في النقر عليه
+                    noBtn.addEventListener('click', function() {
+                        showSecondPage();
+                    }, { once: true });
+                    return;
+                }
+                
+                // حساب موضع هروب جديد عشوائي
+                const btnRect = noBtn.getBoundingClientRect();
+                const cardWidth = mainCard.offsetWidth;
+                const cardHeight = mainCard.offsetHeight;
+                
+                // حدود الحركة داخل الكارد
+                const maxX = cardWidth - btnRect.width - 40;
+                const maxY = cardHeight - btnRect.height - 20;
+                
+                // توليد مواضع عشوائية مع ضمان عدم الخروج من الكارد
+                const randomX = Math.floor(Math.random() * maxX);
+                const randomY = Math.floor(Math.random() * maxY);
+                
+                // تعيين القيم للهروب
+                noBtn.style.position = 'absolute';
+                noBtn.style.left = `${randomX}px`;
+                noBtn.style.top = `${randomY}px`;
+                
+                // إضافة تأثير الهروب
+                noBtn.classList.add('escaped');
+                setTimeout(() => {
+                    noBtn.classList.remove('escaped');
+                }, 500);
+                
+                // تغيير نص الزر مع زيادة صعوبة الهروب
+                const messages = [
+                    "No 💔",
+                    "Try again! 😜",
+                    "Catch me if you can! 🏃",
+                    "Almost! 👀",
+                    "You're getting closer! 🔥",
+                    "Just a little more! 💫",
+                    "One more try! ✨",
+                    "Okay, you win! 😊"
+                ];
+                
+                noBtn.textContent = messages[Math.min(escapeCount - 1, messages.length - 1)];
+                
+                // تغيير لون الخلفية تدريجياً
+                const intensity = Math.min(escapeCount * 0.1, 0.7);
+                body.style.background = `linear-gradient(135deg, 
+                    rgba(255, 154, 158, ${1 - intensity}), 
+                    rgba(250, 208, 196, ${1 - intensity}))`;
+            });
+            
+            // معالج حدث النقر على زر "العودة"
+            backBtn.addEventListener('click', function() {
+                secondPage.classList.remove('active');
+                setTimeout(() => {
+                    mainCard.classList.remove('hidden');
+                    // إعادة تعيين زر "لا"
+                    resetNoButton();
+                }, 300);
+            });
+            
+            // وظيفة عرض الصفحة الثانية
+            function showSecondPage() {
+                mainCard.classList.add('hidden');
+                setTimeout(() => {
+                    secondPage.classList.add('active');
+                    // تغيير خلفية الجسم
+                    body.style.background = 'linear-gradient(135deg, #ff758c, #ff7eb3)';
+                }, 500);
+            }
+            
+            // إعادة تعيين زر "لا"
+            function resetNoButton() {
+                escapeCount = 0;
+                noBtn.style.position = '';
+                noBtn.style.left = '';
+                noBtn.style.top = '';
+                noBtn.textContent = 'No 💔';
+                body.style.background = 'linear-gradient(135deg, #ff9a9e, #fad0c4)';
+            }
+            
+            // إضافة قلوب إضافية عند النقر على زر "نعم"
+            yesBtn.addEventListener('click', function() {
+                addExtraHearts(15);
+            });
+            
+            // إضافة قلوب متحركة إضافية
+            function addExtraHearts(count) {
+                const heartsContainer = document.querySelector('.hearts');
+                
+                for (let i = 0; i < count; i++) {
+                    const heart = document.createElement('span');
+                    heart.innerHTML = '💖';
+                    
+                    // مواضع عشوائية
+                    heart.style.left = `${Math.random() * 100}%`;
+                    heart.style.fontSize = `${Math.random() * 20 + 20}px`;
+                    heart.style.animationDelay = `${Math.random() * 5}s`;
+                    heart.style.animationDuration = `${Math.random() * 3 + 4}s`;
+                    
+                    heartsContainer.appendChild(heart);
+                    
+                    // إزالة القلب بعد انتهاء الحركة
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 10000);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
