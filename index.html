@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Be My Valentine 💘</title>
@@ -32,18 +33,41 @@
             opacity: 0.7;
         }
 
-        .hearts span:nth-child(1) { left: 10%; animation-delay: 0s; }
-        .hearts span:nth-child(2) { left: 30%; animation-delay: 2s; }
-        .hearts span:nth-child(3) { left: 50%; animation-delay: 4s; }
-        .hearts span:nth-child(4) { left: 70%; animation-delay: 1s; }
-        .hearts span:nth-child(5) { left: 90%; animation-delay: 3s; }
+        .hearts span:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .hearts span:nth-child(2) {
+            left: 30%;
+            animation-delay: 2s;
+        }
+
+        .hearts span:nth-child(3) {
+            left: 50%;
+            animation-delay: 4s;
+        }
+
+        .hearts span:nth-child(4) {
+            left: 70%;
+            animation-delay: 1s;
+        }
+
+        .hearts span:nth-child(5) {
+            left: 90%;
+            animation-delay: 3s;
+        }
 
         @keyframes floatUp {
             0% {
                 transform: translateY(0) scale(1);
                 opacity: 0;
             }
-            20% { opacity: 1; }
+
+            20% {
+                opacity: 1;
+            }
+
             100% {
                 transform: translateY(-110vh) scale(1.5);
                 opacity: 0;
@@ -56,7 +80,7 @@
             padding: 40px 30px;
             border-radius: 25px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             animation: fadeIn 1.5s ease;
             max-width: 350px;
             width: 90%;
@@ -75,6 +99,7 @@
                 opacity: 0;
                 transform: scale(0.8);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1);
@@ -89,8 +114,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
         }
 
         .buttons {
@@ -136,8 +168,13 @@
         }
 
         @keyframes escape {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(var(--escape-x), var(--escape-y)); }
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(var(--escape-x), var(--escape-y));
+            }
         }
 
         /* الصفحة الثانية - الرسالة الرومانسية */
@@ -153,7 +190,7 @@
             flex-direction: column;
             text-align: center;
             padding: 20px;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
             z-index: 5;
             opacity: 0;
             transition: opacity 1s ease;
@@ -165,13 +202,14 @@
         }
 
         .message-container {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             padding: 40px 30px;
             border-radius: 25px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
             width: 90%;
             animation: messageAppear 1.5s ease;
+            position: relative;
         }
 
         @keyframes messageAppear {
@@ -179,6 +217,7 @@
                 opacity: 0;
                 transform: translateY(50px) scale(0.8);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -187,15 +226,43 @@
 
         .message-container h2 {
             color: #ff4b6e;
-            font-size: 32px;
-            margin-bottom: 20px;
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(255, 75, 110, 0.2);
         }
 
         .message-container p {
             color: #555;
             font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .special-message {
+            background: linear-gradient(135deg, #fff5f7, #ffe6ea);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 25px 0;
+            border-right: 5px solid #ff4b6e;
+            box-shadow: 0 5px 15px rgba(255, 75, 110, 0.1);
+        }
+
+        .special-message h3 {
+            color: #ff4b6e;
+            font-size: 24px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .special-message p {
+            color: #ff3366;
+            font-size: 20px;
             line-height: 1.6;
-            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            direction: rtl;
         }
 
         .romantic-hearts {
@@ -205,8 +272,15 @@
         }
 
         @keyframes heartBeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
         }
 
         .back-button {
@@ -227,20 +301,70 @@
             box-shadow: 0 10px 20px rgba(255, 75, 110, 0.4);
         }
 
+        .signature {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px dashed #ff4b6e;
+            color: #666;
+            font-size: 16px;
+            text-align: center;
+            direction: ltr;
+        }
+
+        .signature strong {
+            color: #ff4b6e;
+            font-size: 18px;
+        }
+
+        /* قلوب متحركة إضافية في الصفحة الثانية */
+        .floating-hearts span {
+            position: absolute;
+            font-size: 30px;
+            animation: floatAround 8s infinite ease-in-out;
+            opacity: 0.6;
+        }
+
+        @keyframes floatAround {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(50px, -50px) rotate(90deg);
+            }
+
+            50% {
+                transform: translate(0, -100px) rotate(180deg);
+            }
+
+            75% {
+                transform: translate(-50px, -50px) rotate(270deg);
+            }
+        }
+
         /* Responsive */
         @media (max-width: 480px) {
             h1 {
                 font-size: 22px;
             }
+
             .message-container h2 {
-                font-size: 26px;
+                font-size: 28px;
             }
+
             .message-container p {
                 font-size: 16px;
+            }
+
+            .special-message p {
+                font-size: 18px;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- قلوب الخلفية -->
     <div class="hearts">
@@ -262,94 +386,120 @@
 
     <!-- الصفحة الثانية -->
     <div class="second-page" id="secondPage">
+        <!-- قلوب متحركة إضافية -->
+        <div class="floating-hearts">
+            <span style="top:10%; left:5%">💖</span>
+            <span style="top:20%; left:85%">💘</span>
+            <span style="top:60%; left:10%">❤️</span>
+            <span style="top:80%; left:90%">💕</span>
+            <span style="top:40%; left:70%">💗</span>
+        </div>
+
         <div class="message-container">
-            <h2>You Found Me! 💖</h2>
             <div class="romantic-hearts">❤️💘💕💗💓</div>
-            <p>Even when I tried to run away, my heart always leads me back to you. You're the one who captured my heart completely.</p>
-            <p>Your persistence and determination show me how much you care. I may have tried to escape, but deep down I always hoped you'd catch me.</p>
-            <p>So here's my real answer: <strong>YES, I will be your Valentine!</strong> 💝</p>
-            <button class="back-button" id="backBtn">Back to Question 💌</button>
+
+
+            <div class="special-message">
+                <h3>إلى حبيبتي نورهان 💝</h3>
+                <p>نورهان يا أجمل نور في حياتي...</p>
+                <p>أنتِ الحب الذي لم أعرف معنى للحياة دونه، والشعور الذي يملأ قلبي أماناً وسعادة.</p>
+                <p>كل لحظة معكِ هي كنز لا يعوض، وكل نظرة من عينيكِ هي عالم من المشاعر.</p>
+                <p>أحبك أكثر مما تستطيع الكلمات أن تعبر، وأقدّرك أكثر مما تستطيع الأفكار أن تتخيل.</p>
+            </div>
+
+
+            <div class="signature">
+                <strong>From the depths of my heart ❤️</strong><br>
+                By Ziad Abdo - Flutter Developer & Software Engineer
+            </div>
+
+            <button class="back-button" id="backBtn">العودة إلى السؤال 💌</button>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const yesBtn = document.getElementById('yesBtn');
             const noBtn = document.getElementById('noBtn');
             const mainCard = document.getElementById('mainCard');
             const secondPage = document.getElementById('secondPage');
             const backBtn = document.getElementById('backBtn');
             const body = document.body;
-            
+
             // إعدادات الهروب لزر "لا"
             let escapeCount = 0;
             const maxEscapes = 8;
-            const cardRect = mainCard.getBoundingClientRect();
-            
+
             // معالج حدث زر "نعم"
-            yesBtn.addEventListener('click', function() {
+            yesBtn.addEventListener('click', function () {
                 showSecondPage();
             });
-            
+
             // معالج حدث زر "لا" - يهرب عند الاقتراب منه
-            noBtn.addEventListener('mouseover', function() {
+            noBtn.addEventListener('mouseover', function () {
                 escapeCount++;
-                
+
                 if (escapeCount > maxEscapes) {
                     // بعد محاولات عديدة، نجح في النقر عليه
-                    noBtn.addEventListener('click', function() {
+                    noBtn.addEventListener('click', function () {
                         showSecondPage();
                     }, { once: true });
+
+                    // تغيير نص الزر إلى رسالة خاصة
+                    noBtn.textContent = "نورهان، أنتِ رائعة! 💖";
+                    noBtn.style.background = "#ff4b6e";
+                    noBtn.style.color = "white";
+                    noBtn.style.cursor = "pointer";
+
                     return;
                 }
-                
+
                 // حساب موضع هروب جديد عشوائي
                 const btnRect = noBtn.getBoundingClientRect();
-                const cardWidth = mainCard.offsetWidth;
-                const cardHeight = mainCard.offsetHeight;
-                
+                const cardRect = mainCard.getBoundingClientRect();
+
                 // حدود الحركة داخل الكارد
-                const maxX = cardWidth - btnRect.width - 40;
-                const maxY = cardHeight - btnRect.height - 20;
-                
+                const maxX = cardRect.width - btnRect.width - 40;
+                const maxY = cardRect.height - btnRect.height - 20;
+
                 // توليد مواضع عشوائية مع ضمان عدم الخروج من الكارد
                 const randomX = Math.floor(Math.random() * maxX);
                 const randomY = Math.floor(Math.random() * maxY);
-                
+
                 // تعيين القيم للهروب
                 noBtn.style.position = 'absolute';
                 noBtn.style.left = `${randomX}px`;
                 noBtn.style.top = `${randomY}px`;
-                
+
                 // إضافة تأثير الهروب
                 noBtn.classList.add('escaped');
                 setTimeout(() => {
                     noBtn.classList.remove('escaped');
                 }, 500);
-                
+
                 // تغيير نص الزر مع زيادة صعوبة الهروب
                 const messages = [
-                    "No 💔",
-                    "Try again! 😜",
-                    "Catch me if you can! 🏃",
-                    "Almost! 👀",
-                    "You're getting closer! 🔥",
-                    "Just a little more! 💫",
-                    "One more try! ✨",
-                    "Okay, you win! 😊"
+                    "لا 💔",
+                    "حاولي مرة أخرى! 😜",
+                    "قفي عليّ إذا استطعتِ! 🏃",
+                    "كادتِ تمسكين بي! 👀",
+                    "أنتِ تقتربين! 🔥",
+                    "مزيد من المحاولة! 💫",
+                    "محاولة أخيرة! ✨",
+                    "حسناً، لقد ربحتِ! 😊"
                 ];
-                
+
                 noBtn.textContent = messages[Math.min(escapeCount - 1, messages.length - 1)];
-                
+
                 // تغيير لون الخلفية تدريجياً
                 const intensity = Math.min(escapeCount * 0.1, 0.7);
                 body.style.background = `linear-gradient(135deg, 
                     rgba(255, 154, 158, ${1 - intensity}), 
                     rgba(250, 208, 196, ${1 - intensity}))`;
             });
-            
+
             // معالج حدث النقر على زر "العودة"
-            backBtn.addEventListener('click', function() {
+            backBtn.addEventListener('click', function () {
                 secondPage.classList.remove('active');
                 setTimeout(() => {
                     mainCard.classList.remove('hidden');
@@ -357,7 +507,7 @@
                     resetNoButton();
                 }, 300);
             });
-            
+
             // وظيفة عرض الصفحة الثانية
             function showSecondPage() {
                 mainCard.classList.add('hidden');
@@ -365,47 +515,77 @@
                     secondPage.classList.add('active');
                     // تغيير خلفية الجسم
                     body.style.background = 'linear-gradient(135deg, #ff758c, #ff7eb3)';
+                    // إضافة قلوب إضافية
+                    addFloatingHearts(10);
                 }, 500);
             }
-            
+
             // إعادة تعيين زر "لا"
             function resetNoButton() {
                 escapeCount = 0;
                 noBtn.style.position = '';
                 noBtn.style.left = '';
                 noBtn.style.top = '';
-                noBtn.textContent = 'No 💔';
+                noBtn.textContent = 'لا 💔';
+                noBtn.style.background = '#ffd6dc';
+                noBtn.style.color = '#ff4b6e';
                 body.style.background = 'linear-gradient(135deg, #ff9a9e, #fad0c4)';
             }
-            
+
             // إضافة قلوب إضافية عند النقر على زر "نعم"
-            yesBtn.addEventListener('click', function() {
+            yesBtn.addEventListener('click', function () {
                 addExtraHearts(15);
             });
-            
-            // إضافة قلوب متحركة إضافية
+
+            // إضافة قلوب متحركة إضافية في الصفحة الرئيسية
             function addExtraHearts(count) {
                 const heartsContainer = document.querySelector('.hearts');
-                
+
                 for (let i = 0; i < count; i++) {
                     const heart = document.createElement('span');
                     heart.innerHTML = '💖';
-                    
+
                     // مواضع عشوائية
                     heart.style.left = `${Math.random() * 100}%`;
                     heart.style.fontSize = `${Math.random() * 20 + 20}px`;
                     heart.style.animationDelay = `${Math.random() * 5}s`;
                     heart.style.animationDuration = `${Math.random() * 3 + 4}s`;
-                    
+
                     heartsContainer.appendChild(heart);
-                    
+
                     // إزالة القلب بعد انتهاء الحركة
                     setTimeout(() => {
                         heart.remove();
                     }, 10000);
                 }
             }
+
+            // إضافة قلوب متحركة في الصفحة الثانية
+            function addFloatingHearts(count) {
+                const floatingHearts = document.querySelector('.floating-hearts');
+
+                for (let i = 0; i < count; i++) {
+                    const heart = document.createElement('span');
+                    const hearts = ['💖', '💘', '❤️', '💕', '💗', '💓'];
+                    heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+
+                    // مواضع عشوائية
+                    heart.style.left = `${Math.random() * 95}%`;
+                    heart.style.top = `${Math.random() * 95}%`;
+                    heart.style.fontSize = `${Math.random() * 25 + 20}px`;
+                    heart.style.animationDelay = `${Math.random() * 5}s`;
+                    heart.style.animationDuration = `${Math.random() * 5 + 8}s`;
+
+                    floatingHearts.appendChild(heart);
+                }
+            }
+
+            // إضافة قلوب عند تحميل الصفحة الثانية
+            if (secondPage.classList.contains('active')) {
+                addFloatingHearts(5);
+            }
         });
     </script>
 </body>
+
 </html>
